@@ -5,9 +5,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{hyperref}
-
 \usepackage[autocite=superscript, style=nature]{biblatex}
-
 \addbibresource{Manuscript.bib}
 \graphicspath{ {./Figures/} }
 
@@ -22,8 +20,8 @@
 
 \title{Maximizing citizen scientists' contribution to automated species recognition}
 \date{}
-
-\author{Wouter Koch\orcidlink{0000-0001-9025-9486}\(^{1,2}\)*
+\author{
+Wouter Koch\orcidlink{0000-0001-9025-9486}\(^{1,2}\)*
 \and
 Laurens Hogeweg\orcidlink{0000-0001-6874-5728}\(^{3,4}\)†
 \and
@@ -32,9 +30,7 @@ Erlend B. Nilsen\orcidlink{0000-0002-5119-8331}\(^{5}\)†
 Anders G. Finstad\orcidlink{0000-0003-4529-6266}\(^1\)†}
 
 \maketitle
-
 \begin{center}
-
 {\footnotesize \(^1\)Department of Natural History, Norwegian University of Science and Technology, Trondheim, Norway}
 
 {\footnotesize \(^2\)Norwegian Biodiversity Information Centre, Trondheim, Norway}
@@ -58,35 +54,16 @@ Contributing authors:
 \href{mailto:anders.finstad@ntnu.no}{anders.finstad@ntnu.no}}
 
 \vspace{1cm}
-
 \footnotesize{† These authors contributed equally to this work.}
-
 \end{center}
-
 \newpage
-
-
 \justifying
 \normalsize
 
 \section*{Abstract}
-\textbf{Technological advances and data availability have enabled artificial intelligence-driven tools
-that can increasingly successfully assist in identifying species from images. Especially within citizen science,
-an emerging source of information filling the knowledge gaps needed to solve the biodiversity crisis, such tools 
-can allow participants to recognize and report more poorly known species. This can be an important tool in 
-addressing the substantial taxonomic bias in biodiversity data, where broadly recognized, charismatic species 
-are highly over-represented. Meanwhile, the recognition models are trained using the same biased data, so 
-it is important to consider what additional images are needed to improve recognition models. In this study, 
-we investigated how the amount of training data influenced the performance of species recognition models for 
-various taxa. We utilized a large Citizen Science dataset collected in Norway, where images are added 
-independently from identification. We demonstrate that while adding images of currently under-represented 
-taxa will generally improve recognition models more, there are important deviations from this general pattern. 
-Thus, a more focused prioritization of data collection beyond the basic paradigm that ``more is better'' is 
-likely to significantly improve species recognition models and advance the representativeness of biodiversity data.}
+\textbf{Technological advances and data availability have enabled artificial intelligence-driven tools that can increasingly successfully assist in identifying species from images. Especially within citizen science, an emerging source of information filling the knowledge gaps needed to solve the biodiversity crisis, such tools can allow participants to recognize and report more poorly known species. This can be an important tool in addressing the substantial taxonomic bias in biodiversity data, where broadly recognized, charismatic species are highly over-represented. Meanwhile, the recognition models are trained using the same biased data, so it is important to consider what additional images are needed to improve recognition models. In this study, we investigated how the amount of training data influenced the performance of species recognition models for various taxa. We utilized a large Citizen Science dataset collected in Norway, where images are added independently from identification. We demonstrate that while adding images of currently under-represented taxa will generally improve recognition models more, there are important deviations from this general pattern. Thus, a more focused prioritization of data collection beyond the basic paradigm that ``more is better'' is likely to significantly improve species recognition models and advance the representativeness of biodiversity data.}
 
 \vspace{.5cm}
-
-
 \noindent\textbf{Keywords:} Image recognition, Taxonomic bias, Value of Information, Citizen science
 
 
@@ -103,8 +80,6 @@ In this study, we use a large Norwegian citizen science project as an example to
 \section*{Results}
 \subsection*{Taxonomic bias in Citizen Science observations with or without images}
 It has been well documented in a global context that particularly charismatic taxonomic classes have many times more reported observations per species than those that are considered less charismatic\autocite{Troudet2017}. We find the same pattern when considering classes within the totality of GBIF mediated observations for Norway from all sources (figure \ref{fig:bias_a}). When limiting this analysis to only observations with images that originate from the citizen science platform Species Observation Service\autocite{GBIF_dataset}, a different pattern emerges (figure \ref{fig:bias_b}). Perhaps most eye-catchingly, Insecta are the most under-represented taxon in the totality of Norwegian observations, but the 3rd most over-represented when limiting the analysis to citizen science images. We performed a similar analysis for the 12 taxonomic orders used in the machine learning part of this study (figure \ref{fig:VoI_vs_bias}), revealing biases in relative presentation per species at this finer taxonomic scale for citizen science observations with images; the data available for training out recognition models.
-
-
 \begin{figure}
   \centering
   \begin{subfigure}[b]{0.4\textwidth}
@@ -120,7 +95,8 @@ It has been well documented in a global context that particularly charismatic ta
       \caption{}
       \label{fig:bias_b}
   \end{subfigure}
-  \caption{\footnotesize The per-species representation of observations in Norway per class, using all GBIF data (a) or only GBIF mediated citizen science data with images (b). The 0-line is where the values would be if the average number of observations per species in that class was equal to the average number of observations per species over all classes combined. Plotted here on an inverse hyperbolic sine-transformed scale, sorted by the per-species representation in subplot (a).}
+
+ \caption{\footnotesize The per-species representation of observations in Norway per class, using all GBIF data (a) or only GBIF mediated citizen science data with images (b). The 0-line is where the values would be if the average number of observations per species in that class was equal to the average number of observations per species over all classes combined. Plotted here on an inverse hyperbolic sine-transformed scale, sorted by the per-species representation in subplot (a).}
      \label{fig:bias}
 \end{figure}
 
@@ -128,9 +104,10 @@ It has been well documented in a global context that particularly charismatic ta
 \subsection*{Image recognition performance and the Value of Information}
 When training image recognition models, the amount of training data provided to the model determines how well the model is able to recognize species in the test images. For all orders, as models are provided with more images per species, their performance (as measured by the F\(_1\) scores) increases. Comparing the performances for each order with the lowest and highest number of training images per species, as well as the gradual performance increase over intermediate numbers of training images, it is clear that the 12 orders have distinct performance curves (figure \ref{fig:F1_curves}). From this it follows that the increase in performance at any given point on these curves - the Value of Information of adding images at that point - also differs between orders. Combined with widely different amounts of currently available observations between orders, the estimated VoI of an image added to the images that are currently available for that order also varies widely (figure \ref{fig:VoI_curves}).
 
+
 \begin{figure}[!ht]
   \includegraphics[width=\textwidth]{2}
-  \caption{\footnotesize The performance (F\(_1\) score) vs the train set size. Lines are the fitted Von Bertalanffy Growth Function-curves per order. See the \hyperref[fig:vbgf]{Supplementary Information} for an interpretation of such curves.
+  \caption{\footnotesize The performance (F\(_1\) score) vs the train set size. Lines are the fitted Von Bertalanffy Growth Function-curves per order. See figure \ref{fig:vbgf} in the \hyperref[fig:vbgf]{Supplementary Information} for an interpretation of such curves.
   }
   \label{fig:F1_curves}
 \end{figure}
@@ -145,12 +122,12 @@ When training image recognition models, the amount of training data provided to 
 \subsection*{Combining VoI and taxonomic bias}
 After obtaining the per-species over- and under-representations, as well as the current expected Value of Information of additional images, we can compare the two values for each order in the experiment. Plotting the taxonomic bias of the orders used in this experiment together with their estimates for their respective estimated VoI, it is clear that current under- or over-representation of the order is not the determining factor for the expected value of additional observations. While the VoI of under-represented orders is generally higher, differences between orders in their learning curves cause some orders to have a higher or lower VoI than just their overall over- or under-representation would indicate (figure \ref{fig:VoI_vs_bias}).
 
+
 \begin{figure}[!ht]
   \includegraphics[width=\textwidth]{4}
-  \caption{\footnotesize The relative per-species representation in Norwegian citizen science observations with images, and their Value of Information (VoI). The areas of the circles are relative to their respective VoI, defined as the current expected performance increase (in F\(_1\) score) for one added observation with images for that order. If the VoI of adding data was mainly determined by the current relative over- or under-representation of a taxon, one would expect circles to gradually increase for more under-represented orders in the lower part of the graph. Numerical values provided in the \hyperref[tab:biases]{Supplementary Information}.}
+  \caption{\footnotesize The relative per-species representation in Norwegian citizen science observations with images, and their Value of Information (VoI). The areas of the circles are relative to their respective VoI, defined as the current expected performance increase (in F\(_1\) score) for one added observation with images for that order. If the VoI of adding data was mainly determined by the current relative over- or under-representation of a taxon, one would expect circles to gradually increase for more under-represented orders in the lower part of the graph. Numerical values provided in table \ref{tab:biases} in the \hyperref[tab:biases]{Supplementary Information}.}
   \label{fig:VoI_vs_bias}
 \end{figure}
-
 
 \section*{Discussion}
 We set out to investigate the taxonomic bias in citizen science data, in particular when accompanied by images, using a large Norwegian citizen science project as an example case. Such images can be used to train deep neural networks for image recognition, helping citizen scientists by verifying species identifications and address some of the inherent taxonomic bias. By examining how the performance of recognition models increases as it is provided with more images in an experimental setup, we can estimate how much we expect models to improve when adding more images to those currently available for each taxon. Comparing this Value of Information to the taxonomic bias within citizen science image data, we propose data prioritization strategies based on what additional data would improve recognition models the most. Such strategies would be more efficient than merely focusing more on taxa for which there are currently fewer images available.
@@ -202,7 +179,8 @@ A division by order was found to provide the highest minimum number of species (
 We retrieved the number of species represented in the Norwegian data through the GBIF API, for both all observations, all citizen science observations, and all citizen science observations with images for the 12 selected orders and the classes used by \citeauthor{Troudet2017}\autocite{Troudet2017}. We also downloaded the Norwegian Species Nomenclature Database for all kingdoms containing taxa included in these datasets. Observations with images were collected from the Darwin Core Archive file used in the exploration phase, filtering on the selected orders. For these orders, all images were downloaded and stored locally.
 
 \subsection*{Experimental procedure}
-For each selected order, a list of all species with at least 220 observations with images was generated from the Darwin Core Archive file\autocite{GBIF_dataset}. Then, runs were generated according to the following protocol (figure \ref{fig:workflow}): 
+For each selected order, a list of all species with at least 220 observations with images was generated from the Darwin Core Archive file\autocite{GBIF_dataset}. Then, runs were generated according to the following protocol (figure \ref{fig:workflow}):
+
 
 \begin{figure}[!ht]
   \includegraphics[width=\textwidth]{5}
@@ -221,16 +199,16 @@ Following this protocol results in a single run of related training tasks with 2
 Then, a Convolutional Neural Network (CNN) based on Inception-ResNet-v2\autocite{szegedy2016inceptionv4} (see the \hyperref[sec:model]{Supplementary Information} for model configuration) was trained using each predesignated train/validation split. When the learning rate had reached its minimum and accuracy no longer improved on the validation data, training was stopped and the best performing model was saved. Following this protocol, each of the 12 orders were trained in 5 separate runs containing 11 training tasks each, thus producing a total of 660 recognition models. After training, each model was tested on all available test images for the relevant run.
 
 \subsection*{Data analysis}
-The relative representation of species within different taxa were generated by dividing the number of species present in the GBIF data for Norway within each taxon by the number of accepted species within that taxon present in the Norwegian Species Nomenclature Database\autocite{Artsnavnebase}, in line with \citeauthor{Troudet2017}\autocite{Troudet2017}. 
+The relative representation of species within different taxa were generated by dividing the number of species present in the GBIF data for Norway within each taxon by the number of accepted species within that taxon present in the Norwegian Species Nomenclature Database\autocite{Artsnavnebase}, in line with \citeauthor{Troudet2017}\autocite{Troudet2017}.
 
-As a measure of model performance, we use the F\(_1\) score, the harmonic mean of the model's precision and recall, given by 
+As a measure of model performance, we use the F\(_1\) score, the harmonic mean of the model's precision and recall, given by
 
 \[ F_1 = \frac{tp}{tp + \frac{1}{2}(fp + fn)} \]
 
 
-where \(tp\), \(fp\) and \(fn\) stand for true positives, false positives and false negatives, respectively. The F\(_1\) score is a commonly used metric for model evaluation, as it is less susceptible to data imbalance than model accuracy\autocite{Goodfellow-et-al-2016}. 
+where \(tp\), \(fp\) and \(fn\) stand for true positives, false positives and false negatives, respectively. The F\(_1\) score is a commonly used metric for model evaluation, as it is less susceptible to data imbalance than model accuracy\autocite{Goodfellow-et-al-2016}.
 
-The Value of Information (VoI) can be generically defined as ``\textit{the increase in expected value that arises from making the best choice with the benefit of a piece of information compared to the best choice without the benefit of that same information}''\autocite{Keisler2013}. In the current context, we define the VoI as the expected increase in model performance (F\(_1\) score) when adding one image-documented observation. To estimate this, for every order included in the experiment, the increase in average F\(_1\) score over increasing training task sizes were fitted using the Von Bertalanffy Growth Function, given by 
+The Value of Information (VoI) can be generically defined as ``\textit{the increase in expected value that arises from making the best choice with the benefit of a piece of information compared to the best choice without the benefit of that same information}''\autocite{Keisler2013}. In the current context, we define the VoI as the expected increase in model performance (F\(_1\) score) when adding one image-documented observation. To estimate this, for every order included in the experiment, the increase in average F\(_1\) score over increasing training task sizes were fitted using the Von Bertalanffy Growth Function, given by
 
 \[ L = L_\infty(1 - e^{-k(t-t_0)}). \]
 
@@ -244,13 +222,15 @@ where
 
 Using this derivative function, we can estimate the expected performance increase stemming from one additional observation with images for each of the species within the order. Filling in the average number of citizen science observations with images per Norwegian species in that order for t, and dividing the result by the total number of Norwegian species within the order, provides the VoI of one additional observation with images for that order, expressed as an average expected F\(_1\) increase.
 
-\printbibliography 
-
+\printbibliography
 \newpage
 
 \section*{Supplementary Information}
-\subsection*{Code availability}
-All code used in this study for the experiment and the generation of graphs provided in this manuscript is available on \url{https://github.com/WouterKoch/citizen_science_VoI}.
+\subsection*{Availability of data and materials}
+The datasets generated and/or analyzed during the current study are available in the GBIF repository, \url{https://doi.org/10.15468/dl.tc4w55}.
+
+All code used in this study for the experiment and the generation of this manuscript and its graphs is available on \url{https://github.com/WouterKoch/citizen_science_VoI}.
+
 
 \subsection*{Image recognition model configuration}
 \label{sec:model}
@@ -272,9 +252,9 @@ After each epoch, model performance was evaluated using the validation set, savi
 \begin{table}[h!]
   \centering
 
-  \begin{tabular}{|r | r | r|} 
+  \begin{tabular}{|r | r | r|}
    \hline
-   \textbf{Order} & \textbf{Bias in cs data with img} & \textbf{VoI (F\boldmath$_1$ increase \boldmath$\cdot10^{6}$)} \\ [0.5ex] 
+   \textbf{Order} & \textbf{Bias in cs data with img} & \textbf{VoI (F\boldmath$_1$ increase \boldmath$\cdot10^{6}$)} \\ [0.5ex]
    \hline
    Asparagales & 5259 & 13.05 \\
    Lamiales & 3879 & 9.36 \\
@@ -287,7 +267,7 @@ After each epoch, model performance was evaluated using the validation set, savi
    Odonata & 13075 & 0.32 \\
    Lepidoptera & 145110 & 0.17 \\
    Charadriiformes & 57421 & 0.13 \\
-   Anseriformes & 49501 & 0.02 \\  [1ex] 
+   Anseriformes & 49501 & 0.02 \\  [1ex]
    \hline
   \end{tabular}
   \caption{\footnotesize Orders used in the machine learning experiment, their over- or under-representation among citizen science observations with images (relative to all orders having an equal average amount of such observations per species), and the Value of Information as measured by the expected F\(_1\) increase for adding one picture to the number of images currently available. Sorted by VoI (descending). These are the numerical values for figure \ref{fig:VoI_vs_bias}.}
@@ -296,20 +276,11 @@ After each epoch, model performance was evaluated using the validation set, savi
 
   \pagebreak
   \subsection*{Von Bertalanffy Growth Curves}
+
+ 
   \begin{figure}[!ht]
     \includegraphics[width=\textwidth]{6}
     \caption{\footnotesize Visualization of the Von Bertalanffy Growth Curve parameters. Curves were fitted using the Levenberg-Marquardt (Least Squares) algorithm. Residuals were plotted for each taxon and not found to be heterogeneous in their distribution.}
     \label{fig:vbgf}
-  \end{figure}
-
-
-
-  
-
-
-
- 
-  
-  
-
+  \end{figure} 
 \end{document}
