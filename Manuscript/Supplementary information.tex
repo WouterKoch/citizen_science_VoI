@@ -21,8 +21,10 @@
 
 \begin{document}
 
-
 \section*{Supplementary Information}
+
+\subsection*{Pilot run taxa}
+Initial pilot runs were done on Bombus, Cetoniidae, Coccinellidae, Coleoptera, Lepidoptera, Odonata, Rodentia, and Zygaenidae. These taxa were chosen in order to test the machine learning pipeline on taxa with different levels of difficulty of identification. Rodentia were added to include a taxon outside of the Insecta.
 
 \subsection*{Image recognition model configuration}
 \label{sec:model}
@@ -62,7 +64,7 @@ After each epoch, model performance was evaluated using the validation set, savi
    Anseriformes & 49501 & 0.02 \\  [1ex]
    \hline
   \end{tabular}
-  \caption{\footnotesize Orders used in the machine learning experiment, their over- or under-representation among citizen science observations with images (relative to all orders having an equal average amount of such observations per species), and the Value of Information as measured by the expected F\(_1\) increase for adding one picture to the number of images currently available. Sorted by VoI (descending). These are the numerical values for figure 4.}
+  \caption{\footnotesize Orders used in the machine learning experiment, their over- or under-representation among citizen science observations with images (relative to all orders having an equal average amount of such observations per species), and the Value of Information as measured by the expected F\(_1\) increase for adding one observation with images to the number of observations with images currently available. Sorted by VoI (descending). These are the numerical values for figure \ref{fig:VoI_vs_bias}.}
   \label{tab:biases}
   \end{table}
 
@@ -74,10 +76,7 @@ After each epoch, model performance was evaluated using the validation set, savi
     \includegraphics[width=\textwidth]{6}
     \caption{\footnotesize Visualization of the Von Bertalanffy Growth Curve parameters. Curves were fitted using the Levenberg-Marquardt (Least Squares) algorithm. Residuals were plotted for each taxon and not found to be heterogeneous in their distribution.}
     \label{fig:vbgf}
-  \end{figure}
-
-
+  \end{figure} 
   \printbibliography
-
 
 \end{document}
