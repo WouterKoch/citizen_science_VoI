@@ -140,3 +140,8 @@ dmypy.json
 *.out
 *.run.xml
 *.synctex.gz
+
+
+# Latex diff files
+Manuscript/diff.*
+Manuscript/*_old.*

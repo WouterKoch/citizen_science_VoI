@@ -1222,11 +1222,14 @@ def plot_means_derivatives_together(path, output_path, extension, metrics=None, 
                 facecolor=colormap[t], 
                 zorder=100,
                 edgecolor="white",
-                linewidth=1)
+                linewidth=1, label=taxon)
+        
+        ax.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+
 
     plt.savefig(
         os.path.join(output_path, f"Fitted VBGF derivative{' (per species)' if per_species else ''}.{extension}"),
-        dpi=300)
+        dpi=300, bbox_inches='tight')
     plt.close()
 
 
